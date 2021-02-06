@@ -9,15 +9,24 @@ const createStrainObjectToInsert = (strain) => {
     }
 }
 
-exports.addStrainToDb = async (strain, type) => {
+exports.addStrainToDb = async (strain) => {
     const strainToInsert = createStrainObjectToInsert(strain);
-    const insertionResult = await Strain.addStrain(strainToInsert, type);
+    const insertionResult = await Strain.addStrain(strainToInsert);
     if(insertionResult){
         const insertedStrain = insertionResult.ops[0];
         return insertedStrain;
     }else{
         return null;
     }  
+}
+
+exports.addDescriptionToDb = async (name, description) => {
+    const addedDescription = await Strain.addDescription(name, description)
+    if(addedDescription) {
+        return addedDescription
+    }else{
+        return null
+    }
 }
 
 exports.getStrainFromDb = async (name) => {

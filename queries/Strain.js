@@ -1,17 +1,25 @@
 const MongoUtil = require('../config/MongoUtil');
 
-exports.addStrain = async (strain, type) => {
+exports.addStrain = async (strain) => {
     const _db = MongoUtil.getDb();
     try{
-        // const typeCollection = _db.collection(`strains_${type}`);
-        const allCollection = _db.collection(`strains_all`);
-        // const result = await typeCollection.insertOne(strain);
+        const allCollection = _db.collection('strains_all');
         const result = await allCollection.insertOne(strain);
         return result;
     }catch{
         return null;
     }
 }
+exports.addDescription = async (name, description) => {
+    const _db = MongoUtil.getDb()
+    try {
+        const allCollection = _db.collection('strains_all')
+        const result = await allCollection.updateOne({"name": name}, {$set: {"description" : description}})
+        return result
+    } catch {
+        return null
+    }
+} 
 
 exports.getAllStrains = async () => {
     const _db = MongoUtil.getDb();
@@ -30,7 +38,6 @@ exports.getStrainByName = async (name) => {
     try {
         const allCollection = _db.collection('strains_all')
         const strain = await allCollection.findOne({"name":name.toLowerCase()})
-        console.log(strain);
         return strain
     } catch {
         return null

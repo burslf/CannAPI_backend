@@ -16,10 +16,11 @@ app.post("/login",AuthController.login);
 
 // //Image upload enpoint
 // app.post("/strain", ImageHandler.upload.single('image'), ImageController.image);
-app.get("/strain/:name",StrainController.getStrainByName)
-app.post("/strains/:type",StrainController.addStrain)
-app.get("/strains/:type",StrainController.getStrainsByType)
+app.post("/strain",StrainController.addStrain)
 app.get("/strains",StrainController.getAllStrains)
+app.get("/strain/:name",StrainController.getStrainByName)
+app.get("/strains/:type",StrainController.getStrainsByType)
+app.post("/strain/:name", StrainController.addDescription)
 // app.delete("/remove/:id",AuthController.deleteOneResultFromUser);
 // app.get("/results",AuthController.getAllUserResults);
 
